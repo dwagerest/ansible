@@ -1,0 +1,60 @@
+- hosts: Kitchen
+  tasks:
+   - name: Set a hostname
+     ansible.builtin.hostname:
+        name: Kitchen
+
+
+- hosts: Room
+  tasks:
+   - name: Set a hostname
+     ansible.builtin.hostname:
+        name: Room
+
+- hosts: Bathroom
+  tasks:
+   - name: Set a hostname
+     ansible.builtin.hostname:
+        name: Bathroom
+
+- hosts: Balkony
+  tasks:
+   - name: Set a hostname
+     ansible.builtin.hostname:
+        name: Balkony
+
+- hosts: all  
+  become: true
+  vars:
+    packages: ['docker.io', 'apparmor' ]
+  tasks:
+   - name: Update apt-cache
+     apt: update_cache=yes
+   - name: install packages
+     apt:
+       pkg:
+       - docker.io
+       - apparmor
+       - python3-pip
+   - name: Install pip3 docker
+     pip:
+        name:
+          - docker
+#          - docker-py
+   - name: Create a data container
+     docker_container:
+        name: squeezelite
+        image: giof71/squeezelite:stable
+        state: started
+        network_mode: host
+        devices: /dev/snd:/dev/snd
+        env: 
+           SQUEEZELITE_NAME: >-
+                   {% if 1!=1 %}
+                      "1" 
+                   {% else %}
+                       "{{ansible_hostname}}" 
+                   {% endif %}
+
+#         command: "--network host --device /dev/snd"
+
