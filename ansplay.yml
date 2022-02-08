@@ -1,33 +1,12 @@
-- hosts: Kitchen
-  tasks:
-   - name: Set a hostname
-     ansible.builtin.hostname:
-        name: Kitchen
-
-
-- hosts: Room
-  tasks:
-   - name: Set a hostname
-     ansible.builtin.hostname:
-        name: Room
-
-- hosts: Bathroom
-  tasks:
-   - name: Set a hostname
-     ansible.builtin.hostname:
-        name: Bathroom
-
-- hosts: Balkony
-  tasks:
-   - name: Set a hostname
-     ansible.builtin.hostname:
-        name: Balkony
 
 - hosts: all  
   become: true
   vars:
     packages: ['docker.io', 'apparmor' ]
   tasks:
+   - name: Set a hostname
+     ansible.builtin.hostname:
+        name: "{{ansible_hostname}}"
    - name: Update apt-cache
      apt: update_cache=yes
    - name: install packages
