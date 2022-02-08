@@ -19,8 +19,7 @@
      pip:
         name:
           - docker
-#          - docker-py
-   - name: Create a data container
+   - name: docker container for squeezelite
      docker_container:
         name: squeezelite
         image: giof71/squeezelite:stable
@@ -35,4 +34,3 @@
    - name: set max volume
      raw: amixer -c 0 set 'Line Out' 100%
 
-#         command: "--network host --device /dev/snd"
