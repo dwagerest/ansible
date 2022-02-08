@@ -32,5 +32,5 @@
            SQUEEZELITE_NAME: "{{ansible_hostname}}" 
          
    - name: set max volume
-     raw: amixer -c 0 set 'Line Out' 100%
+     raw: amixer -c 0 set 'Line Out' 100% | amixer -c 0 set DAC 80%
 
