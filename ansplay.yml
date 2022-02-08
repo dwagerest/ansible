@@ -25,15 +25,13 @@
         name: squeezelite
         image: giof71/squeezelite:stable
         state: started
+        restart: yes
+        restart_policy: always
         network_mode: host
         devices: /dev/snd:/dev/snd
         env: 
-           SQUEEZELITE_NAME: >-
-                   {% if 1!=1 %}
-                      "1" 
-                   {% else %}
-                       "{{ansible_hostname}}" 
-                   {% endif %}
+           SQUEEZELITE_NAME: "{{ansible_hostname}}" 
+         
    - name: set max volume
      raw: amixer -c 0 set 'Line Out' 100%
 
