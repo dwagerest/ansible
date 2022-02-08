@@ -34,6 +34,7 @@
                    {% else %}
                        "{{ansible_hostname}}" 
                    {% endif %}
+   - name: set max volume
+     raw: amixer -c 0 set 'Line Out' 100%
 
 #         command: "--network host --device /dev/snd"
-
